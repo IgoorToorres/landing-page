@@ -10,7 +10,7 @@ const inter = Inter({subsets: ['latin']})
 
 export const Layout = ({ children }: LayoutProps) => {
     return (
-        <div className={`${inter.className} realtive flex min-h-sreen flex-col bg-gray-500`}>
+        <div className={`${inter.className} realtive flex min-h-sreen flex-col bg-gray-700`}>
             <Header />
             <main className="flex-1 flex flex-col">
                 {children}
