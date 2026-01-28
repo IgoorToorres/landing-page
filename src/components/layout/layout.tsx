@@ -22,7 +22,7 @@ export const Layout = ({ children }: LayoutProps) => {
     return (
         <div className={`${inter.className} ${ptSansCaption.className} realtive flex min-h-sreen flex-col bg-gray-700 font-inter`}>
             <Header />
-            <main className="flex-1 flex flex-col mt-10 mb-12">
+            <main className="flex-1 flex flex-col mt-10">
                 {children}
             </main>
             <Footer />
