@@ -1,9 +1,7 @@
-export default function BlogPage(){
+import { BlogList } from "@/templates/blog";
+
+export default function BlogPage() {
     return (
-        <>
-            <h2 className="text-green-500 mt-40">
-                Blog
-            </h2>
-        </>
+        <BlogList />
     )
 }
