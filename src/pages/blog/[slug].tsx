@@ -2,10 +2,13 @@ import { Avatar } from "@/components/avatar";
 import { AvatarTitle } from "@/components/avatar/avatar-title";
 import { MarkDown } from "@/components/markdown/markdown";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
+import { useShare } from "@/hooks/use-share/use-share";
 import { allPosts } from "contentlayer/generated";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router"
+
 
 export default function PostPage() {
 
@@ -13,6 +16,13 @@ export default function PostPage() {
     const slug = router.query.slug as string;
     const post = allPosts.find((post) => post.slug.toLowerCase() === slug?.toLowerCase())!;
     const publishedDate = new Date(post?.date).toLocaleDateString('pt-BR')
+    const postUrl = `https://site.set/blog/${slug}`;
+
+    const { shareButtons } = useShare({
+        url: postUrl,
+        title: post.title,
+        text: post.description,
+    })
 
     return (
         <main className="container mt-32 text-gray-100">
@@ -71,6 +81,29 @@ export default function PostPage() {
                         </div>
 
                     </article>
+
+                    <aside className="space-y-6">
+                        <div className="rounded-lg bg-gray-700">
+                            <h2 className="mb-3 text-heading-xs text-gray-100">
+                                Compartilhar
+                            </h2>
+
+                            <div className="space-y-3 ">
+                                {shareButtons.map((provider) => (
+                                    <Button
+                                        key={provider.provider}
+                                        onClick={() => provider.action()}
+                                        variant="outline"
+                                        className="w-full justify-start gap-2"
+                                    >
+                                        {provider.icon}
+                                        {provider.name}
+                                    </Button>
+                                ))}
+                            </div>
+                        </div>
+                    </aside>
+
                 </div>
             </div>
         </main>
