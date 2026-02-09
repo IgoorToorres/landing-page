@@ -8,6 +8,19 @@ type BlogPostPage = {
     }>
 }
 
+//revalidar rotas de 1 em 1 minuto
+export const revalidate = 60;
+
+//caso usuario tente acessar uma rota que nao foi gerada em build ele tenta procurar a rota sem dar erro 404
+export const dynamicParams = true;
+
+
+export async function generateStaticParams(){
+    return allPosts.map((post) => ({
+        slug: post.slug
+    }))
+}
+
 export default async function BlogPostPage({ params }: BlogPostPage) {
 
     const { slug } = await params;
