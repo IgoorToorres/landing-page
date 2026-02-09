@@ -7,6 +7,7 @@ import { useShare } from "@/hooks/use-share/use-share";
 import { Post } from "contentlayer/generated";
 import Image from "next/image";
 import Link from "next/link";
+import { PostShare } from "./components/post-share";
 
 export type PostPageProps = {
     post: Post;
@@ -16,11 +17,7 @@ export const PostPage = ({ post }: PostPageProps) => {
     const publishedDate = new Date(post?.date).toLocaleDateString('pt-BR')
     const postUrl = `https://site.set/blog/${post.slug}`;
 
-    const { shareButtons } = useShare({
-        url: postUrl,
-        title: post.title,
-        text: post.description,
-    })
+
 
     return (
         <main className="container mt-32 text-gray-100">
@@ -80,27 +77,11 @@ export const PostPage = ({ post }: PostPageProps) => {
 
                     </article>
 
-                    <aside className="space-y-6">
-                        <div className="rounded-lg bg-gray-700">
-                            <h2 className="mb-3 text-heading-xs text-gray-100">
-                                Compartilhar
-                            </h2>
-
-                            <div className="space-y-3 ">
-                                {shareButtons.map((provider) => (
-                                    <Button
-                                        key={provider.provider}
-                                        onClick={() => provider.action()}
-                                        variant="outline"
-                                        className="w-full justify-start gap-2"
-                                    >
-                                        {provider.icon}
-                                        {provider.name}
-                                    </Button>
-                                ))}
-                            </div>
-                        </div>
-                    </aside>
+                    <PostShare
+                        text={post.description}
+                        title={post.title}
+                        url={postUrl}
+                    />
 
                 </div>
             </div>
